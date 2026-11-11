@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>recipe</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <img
+            class="header__brand-mark"
+            src="./src/assets/images/logo.svg"
+            alt=""
+          />
+          <div class="header__brand-name">Что приготовить?</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="main__content">
+          <div class="main__intro">
+            <h1 class="main__title">Рецепты на каждый день</h1>
+            <div class="main__subtitle">
+              Выбери блюдо из подборки или найди его по названию
+            </div>
+          </div>
+          <div class="main__search">
+            <label for="search" class="search__label">Поиск по названию</label>
+            <div class="search_controls">
+              <div class="search">
+                <i
+                  class="search__icon"
+                  data-lucide="search"
+                  aria-hidden="true"
+                ></i>
+                <input
+                  id="search"
+                  class="search__input"
+                  type="text"
+                  placeholder="Например, Chicken…"
+                />
+              </div>
+
+              <button type="button" class="reset">Сбросить</button>
+            </div>
+          </div>
+
+          <div class="results-count">
+            Найдено рецептов: <span class="results-count__value"></span>
+          </div>
+
+          <section class="recipe-grid">
+            
+          </section>
+
+          <template id="recipeCard">
+            <article class="recipe-card">
+              <div class="recipe-card__image-wrap">
+                <img
+                  class="recipe-card__image"
+                  src="https://cdn.dummyjson.com/recipe-images/1.webp"
+                  alt="Фото еды"
+                />
+              </div>
+              <div class="recipe-card__content">
+                <span class="badge">Italian</span>
+                <h2 class="recipe-card__name">Classic Margherita Pizza</h2>
+
+                <div class="recipe-card__space"></div>
+
+                <div class="time-meta">
+                  <i
+                    class="time-meta__icon"
+                    data-lucide="Clock3"
+                    aria-hidden="true"
+                  ></i>
+                  <div class="time-meta__time">
+                    Общее время: <span class="time-meta__value">40 мин</span>
+                  </div>
+                </div>
+
+                <a class="button" href="/recipe.html?id=1">Посмотреть рецепт</a>
+              </div>
+            </article>
+          </template>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__text">© Codemasters International, 2026</div>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
