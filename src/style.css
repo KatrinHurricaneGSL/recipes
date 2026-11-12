@@ -305,6 +305,7 @@ input {
 
 .pagination {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--gap-12);
   justify-content: center;
 }
