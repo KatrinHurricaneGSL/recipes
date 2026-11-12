@@ -3,6 +3,7 @@ import { getRecipes } from "./api";
 import type { LoadProps, RecipeType } from "./types/recipe.types";
 import { Clock3, createIcons } from "lucide";
 import debounce from "lodash.debounce";
+import { renderPagination } from "./pagination";
 
 const template = document.querySelector<HTMLTemplateElement>("#recipeCard")!;
 const countRecipes = document.querySelector(".results-count__value")!;
@@ -10,6 +11,8 @@ const empty = document.querySelector(".empty") as HTMLDivElement;
 const resetButton =
   document.querySelector<HTMLButtonElement>(".search__reset")!;
 const searchInput = document.querySelector<HTMLInputElement>(".search__input")!;
+
+let currentPage = 1;
 
 const updateSearchButton = () => {
   if (searchInput.value.trim()) {
@@ -60,7 +63,10 @@ const loadCards = async (props?: LoadProps) => {
     setLoading(true);
     const result = await getRecipes(props);
     renderCards(result.recipes);
-    countRecipes.textContent = result.recipes.length.toString();
+    countRecipes.textContent = result.total.toString();
+
+    renderPagination(result.total, 1);
+    setActivePageButton(props?.currentPage || 1);
 
     if (result.recipes.length === 0) {
       empty.classList.remove("empty--hidden");
@@ -118,12 +124,42 @@ const setSearchUrl = (query?: string) => {
 const getSearchUrl = (): string | undefined => {
   const url = new URL(window.location.href);
   const result = url.searchParams.get("search");
-
   return result || undefined;
 };
 
+const getPage = (): number => {
+  const url = new URL(window.location.href);
+  const result = url.searchParams.get("page");
+  if (result) {
+    return Number(result);
+  }
+
+  return 1;
+};
+
+const setPage = (page: number): void => {
+  const url = new URL(window.location.href);
+  url.searchParams.set("page", page.toString());
+  window.history.replaceState(null, "", url);
+};
+
+const setActivePageButton = (currentPage: number) => {
+  const paginationButtons =
+    document.querySelectorAll<HTMLButtonElement>(".pagination button");
+  for (const button of paginationButtons) {
+    const buttonPage = button.dataset.page;
+    if (buttonPage) {
+      if (Number(buttonPage) === currentPage) {
+        button.classList.add("active");
+      } else {
+        button.classList.remove("active");
+      }
+    }
+  }
+};
+
 searchInput.addEventListener("input", () => {
-  fetchCards({ search: searchInput.value });
+  fetchCards({ search: searchInput.value, currentPage: 1 });
   setSearchUrl(searchInput.value);
   updateSearchButton();
 });
@@ -141,6 +177,22 @@ window.addEventListener("DOMContentLoaded", async () => {
     searchInput.value = search;
   }
 
+  const page = getPage();
+  currentPage = page;
+
   updateSearchButton();
-  fetchCards({ search: search });
+  fetchCards({ search: search, currentPage: currentPage });
+});
+
+const pagination = document.querySelector(".pagination");
+pagination?.addEventListener("click", (e) => {
+  const button = e.target;
+  if (button instanceof HTMLButtonElement) {
+    if (button.dataset.page) {
+      currentPage = Number(button.dataset.page);
+      const search = getSearchUrl();
+      setPage(currentPage);
+      fetchCards({ search: search, currentPage: currentPage });
+    }
+  }
 });

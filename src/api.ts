@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from "./pagination";
 import type {
   LoadProps,
   RecipesResponse,
@@ -6,12 +7,19 @@ import type {
 
 const baseUrl = "https://dummyjson.com";
 
-export async function getRecipes(props?: LoadProps): Promise<RecipesResponse> {
-  let url = `${baseUrl}/recipes`;
+export async function getRecipes(
+  { search = "", currentPage = 1 }: LoadProps = { currentPage: 1 },
+): Promise<RecipesResponse> {
+  const endpoint = search.trim() ? "/recipes/search" : "/recipes";
 
-  if (props?.search) {
-    url += `/search?q=${props.search}`;
+  const url = new URL(`${baseUrl}${endpoint}`);
+
+  if (search.trim()) {
+    url.searchParams.set("q", search.trim());
   }
+
+  url.searchParams.set("limit", String(PAGE_SIZE));
+  url.searchParams.set("skip", String((currentPage - 1) * PAGE_SIZE));
 
   const response = await fetch(url);
 
@@ -19,7 +27,7 @@ export async function getRecipes(props?: LoadProps): Promise<RecipesResponse> {
     throw new Error("Не удалось загрузить данные с сервера");
   }
 
-  const data = await response.json();
+  const data: RecipesResponse = await response.json();
 
   return data;
 }

@@ -18,6 +18,6 @@ export type RecipesResponse = {
 };
 
 export type LoadProps = {
-  search?: string
-}
-
+  search?: string;
+  currentPage: number;
+};
