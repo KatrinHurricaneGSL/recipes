@@ -2,14 +2,13 @@ import { getRecipeById } from "./api";
 import "./icons";
 import type { RecipeType } from "./types/recipe.types";
 
-const recipeBody = document.querySelector<HTMLDivElement>(".recipe-body")!;
+const recipeBody = document.querySelector<HTMLDivElement>(".recipe__body")!;
 const empty = document.querySelector<HTMLDivElement>(".empty")!;
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const url = new URL(window.location.href);
     const idRecipe = url.searchParams.get("id");
-    console.log(idRecipe);
     const id = Number(idRecipe);
 
     if (isNaN(id)) {
@@ -54,15 +53,17 @@ const renderRecipe = (recipe: RecipeType) => {
   ingredientsList.innerHTML = "";
   instructionsList.innerHTML = "";
 
-  for (const item of recipe.ingredients) {
+  for (const ingredient of recipe.ingredients) {
     const li = document.createElement("li");
-    li.textContent = item;
+    li.classList.add("ingredients-list__item");
+    li.textContent = ingredient;
     ingredientsList?.append(li);
   }
 
-  for (const item of recipe.instructions) {
+  for (const instruction of recipe.instructions) {
     const li = document.createElement("li");
-    li.textContent = item;
+    li.classList.add("instructions-list__item");
+    li.textContent = instruction;
     instructionsList?.append(li);
   }
 };

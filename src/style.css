@@ -84,7 +84,7 @@ textarea {
   font-size: 18px;
 }
 
-main {
+.main {
   flex-grow: 1;
   background-color: var(--color-background);
   padding-top: 52px;
@@ -112,7 +112,7 @@ main {
   color: var(--color-text-secondary);
 }
 
-.main__search {
+.search {
   display: flex;
   flex-direction: column;
   gap: var(--gap-10);
@@ -123,12 +123,12 @@ main {
   font-weight: 600;
 }
 
-.search_controls {
+.search__controls {
   display: flex;
   gap: var(--gap-12);
 }
 
-.search {
+.search__field {
   position: relative;
   display: flex;
   align-items: center;
@@ -155,7 +155,7 @@ main {
   font-size: 15px;
 }
 
-.reset {
+.search__reset {
   border: none;
   border-radius: 8px;
   padding: 12px 18px;
@@ -166,12 +166,12 @@ main {
   cursor: pointer;
 }
 
-.reset:hover {
+.search__reset:hover {
   background-color: #e5e7eb;
   transition: background-color 0.25s ease;
 }
 
-.reset:disabled {
+.search__reset:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

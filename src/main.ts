@@ -7,12 +7,12 @@ import debounce from "lodash.debounce";
 const template = document.querySelector<HTMLTemplateElement>("#recipeCard")!;
 const countRecipes = document.querySelector(".results-count__value")!;
 const empty = document.querySelector(".empty") as HTMLDivElement;
-const resetButton = document.querySelector<HTMLButtonElement>(".reset")!;
-const searchRecipe =
-  document.querySelector<HTMLInputElement>(".search__input")!;
+const resetButton =
+  document.querySelector<HTMLButtonElement>(".search__reset")!;
+const searchInput = document.querySelector<HTMLInputElement>(".search__input")!;
 
 const updateSearchButton = () => {
-  if (searchRecipe.value.trim()) {
+  if (searchInput.value.trim()) {
     resetButton.removeAttribute("disabled");
   } else {
     resetButton.setAttribute("disabled", "true");
@@ -34,14 +34,14 @@ const renderCards = (recipes: RecipeType[]) => {
 
     const image = card.querySelector<HTMLImageElement>(".recipe-card__image")!;
     const badge = card.querySelector<HTMLSpanElement>(".badge")!;
-    const name = card.querySelector<HTMLHeadingElement>(".recipe-card__name")!;
+    const title = card.querySelector<HTMLHeadingElement>(".recipe-card__name")!;
     const timeValue = card.querySelector<HTMLSpanElement>(".time-meta__value")!;
-    const link = card.querySelector<HTMLLinkElement>(".button")!;
+    const link = card.querySelector<HTMLAnchorElement>(".button")!;
 
     image.src = recipe.image;
     image.alt = `Фото ${recipe.name}`;
     badge.textContent = recipe.cuisine;
-    name.textContent = recipe.name;
+    title.textContent = recipe.name;
     timeValue.textContent = `${recipe.prepTimeMinutes + recipe.cookTimeMinutes} мин`;
     link.href = `/recipe.html?id=${recipe.id}`;
 
@@ -76,7 +76,7 @@ const loadCards = async (props?: LoadProps) => {
 
 const fetchCards = debounce(loadCards, 300);
 
-const setLoading = (state: boolean) => {
+const setLoading = (isLoading: boolean) => {
   const skeletonCount = 6;
 
   const recipeGrid = document.querySelector(".recipe-grid");
@@ -84,7 +84,7 @@ const setLoading = (state: boolean) => {
     return;
   }
 
-  if (state) {
+  if (isLoading) {
     recipeGrid.innerHTML = "";
     countRecipes.textContent = "Загрузка...";
 
@@ -122,14 +122,14 @@ const getSearchUrl = (): string | undefined => {
   return result || undefined;
 };
 
-searchRecipe.addEventListener("input", () => {
-  fetchCards({ search: searchRecipe.value });
-  setSearchUrl(searchRecipe.value);
+searchInput.addEventListener("input", () => {
+  fetchCards({ search: searchInput.value });
+  setSearchUrl(searchInput.value);
   updateSearchButton();
 });
 
 resetButton.addEventListener("click", () => {
-  searchRecipe.value = "";
+  searchInput.value = "";
   updateSearchButton();
   fetchCards();
   setSearchUrl();
@@ -138,7 +138,7 @@ resetButton.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", async () => {
   const search = getSearchUrl();
   if (search) {
-    searchRecipe.value = search;
+    searchInput.value = search;
   }
 
   updateSearchButton();

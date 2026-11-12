@@ -22,14 +22,14 @@
 
     <main class="main recipe-main">
       <div class="container">
-        <div class="recipe__content">
+        <div class="recipe">
           <div class="back-navigation">
-            <i class="back__icon" data-lucide="ArrowLeft" aria-hidden="true">
+            <i class="back-navigation__icon" data-lucide="ArrowLeft" aria-hidden="true">
             </i>
-            <a class="back" href="/">Назад к рецептам</a>
+            <a class="back-navigation__link" href="/">Назад к рецептам</a>
           </div>
 
-          <div class="recipe-body">
+          <div class="recipe__body">
             <h1 class="recipe__title">Загрузка...</h1>
 
             <div class="recipe__hero">
@@ -37,7 +37,7 @@
                 <img class="recipe__photo" src="" alt="" />
               </div>
 
-              <div class="recipe__facts">
+              <div class="facts">
                 <h2 class="facts__heading">О рецепте</h2>
 
                 <table class="facts__table">
@@ -69,14 +69,15 @@
               </div>
             </div>
 
-            <div class="recipe-content">
-              <div class="recipe-ingredients">
+            <div class="recipe__details">
+              <div class="recipe__ingredients">
                 <h2 class="list-title">Ингредиенты</h2>
                 <ul class="ingredients-list">
                   Загрузка...
                 </ul>
               </div>
-              <div class="recipe-instructions">
+
+              <div class="recipe__instructions">
                 <h2 class="list-title">Приготовление</h2>
                 <ol class="instructions-list">
                   Загрузка...
@@ -85,7 +86,7 @@
             </div>
           </div>
 
-          <div class="empty empty--hidden">
+          <div class="empty empty--hidden empty--recipe">
             <i class="empty__icon" data-lucide="Ghost" aria-hidden="true"></i>
             <h1 class="empty__text">Рецепт не найден</h1>
           </div>
