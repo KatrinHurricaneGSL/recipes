@@ -13,12 +13,10 @@ export function renderPagination(total: number, currentPage: number): void {
   if (!pagination) return;
 
   pagination.innerHTML = "";
-
-  if (total < PAGE_SIZE) {
-    pagination.classList.add("hidden");
-  } else {
-    pagination.classList.remove("hidden");
-  }
+  pagination.classList.toggle(
+    "hidden",
+    pages.length <= 1 || currentPage > pages.length,
+  );
 
   pages.forEach((page) => {
     const button = document.createElement("button");

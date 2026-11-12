@@ -12,6 +12,7 @@ const resetButton =
   document.querySelector<HTMLButtonElement>(".search__reset")!;
 const searchInput = document.querySelector<HTMLInputElement>(".search__input")!;
 
+const pagination = document.querySelector(".pagination");
 let currentPage = 1;
 
 const updateSearchButton = () => {
@@ -61,11 +62,16 @@ const renderCards = (recipes: RecipeType[]) => {
 const loadCards = async (props?: LoadProps) => {
   try {
     setLoading(true);
+
+    if (pagination) {
+      pagination.innerHTML = "";
+    }
+
     const result = await getRecipes(props);
     renderCards(result.recipes);
     countRecipes.textContent = result.total.toString();
 
-    renderPagination(result.total, 1);
+    renderPagination(result.total, props?.currentPage || 1);
     setActivePageButton(props?.currentPage || 1);
 
     if (result.recipes.length === 0) {
@@ -184,7 +190,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   fetchCards({ search: search, currentPage: currentPage });
 });
 
-const pagination = document.querySelector(".pagination");
 pagination?.addEventListener("click", (e) => {
   const button = e.target;
   if (button instanceof HTMLButtonElement) {
