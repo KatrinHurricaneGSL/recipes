@@ -1,16 +1,18 @@
-import type { LoadProps, RecipesResponse, RecipeType } from "./types/recipe.types";
+import type {
+  LoadProps,
+  RecipesResponse,
+  RecipeType,
+} from "./types/recipe.types";
 
-const baseUrl = "https://dummyjson.com"
-
-
+const baseUrl = "https://dummyjson.com";
 
 export async function getRecipes(props?: LoadProps): Promise<RecipesResponse> {
-  let url = `${baseUrl}/recipes`
+  let url = `${baseUrl}/recipes`;
 
-  if(props?.search) {
-    url += `/search?q=${props.search}`
+  if (props?.search) {
+    url += `/search?q=${props.search}`;
   }
-  
+
   const response = await fetch(url);
 
   if (!response.ok) {

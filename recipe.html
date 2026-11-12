@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>recipe</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <img
+            class="header__brand-mark"
+            src="./src/assets/images/logo.svg"
+            alt=""
+          />
+          <div class="header__brand-name">Что приготовить?</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main recipe-main">
+      <div class="container">
+        <div class="recipe__content">
+          <div class="back-navigation">
+            <i class="back__icon" data-lucide="ArrowLeft" aria-hidden="true">
+            </i>
+            <a class="back" href="/">Назад к рецептам</a>
+          </div>
+
+          <div class="recipe-body">
+            <h1 class="recipe__title">Загрузка...</h1>
+
+            <div class="recipe__hero">
+              <div class="recipe__photo-wrap">
+                <img class="recipe__photo" src="" alt="" />
+              </div>
+
+              <div class="recipe__facts">
+                <h2 class="facts__heading">О рецепте</h2>
+
+                <table class="facts__table">
+                  <tr class="fact">
+                    <td class="fact__label">Кухня</td>
+                    <td class="fact__value" id="cuisine">Загрузка...</td>
+                  </tr>
+                  <tr class="fact">
+                    <td class="fact__label">Подготовка</td>
+                    <td class="fact__value" id="prepTimeMinutes">
+                      Загрузка...
+                    </td>
+                  </tr>
+                  <tr class="fact">
+                    <td class="fact__label">Приготовление</td>
+                    <td class="fact__value" id="cookTimeMinutes">
+                      Загрузка...
+                    </td>
+                  </tr>
+                  <tr class="fact">
+                    <td class="fact__label">Общее время</td>
+                    <td class="fact__value" id="totalTime">Загрузка...</td>
+                  </tr>
+                  <tr class="fact">
+                    <td class="fact__label">Порции</td>
+                    <td class="fact__value" id="servings">Загрузка...</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="recipe-content">
+              <div class="recipe-ingredients">
+                <h2 class="list-title">Ингредиенты</h2>
+                <ul class="ingredients-list">
+                  Загрузка...
+                </ul>
+              </div>
+              <div class="recipe-instructions">
+                <h2 class="list-title">Приготовление</h2>
+                <ol class="instructions-list">
+                  Загрузка...
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="empty empty--hidden">
+            <i class="empty__icon" data-lucide="Ghost" aria-hidden="true"></i>
+            <h1 class="empty__text">Рецепт не найден</h1>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/recipe.ts"></script>
+  </body>
+</html>
