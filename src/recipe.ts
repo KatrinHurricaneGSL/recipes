@@ -24,6 +24,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const result = await getRecipeById(id);
     renderRecipe(result);
+
+    document.title = `Recipe "${result.name}"`;
   } catch (e) {
     recipeBody.style.display = "none";
     empty.classList.remove("empty--hidden");
@@ -73,7 +75,7 @@ const renderRecipe = (recipe: RecipeType) => {
 
   const instructionsList = checkElement(
     document.querySelector<HTMLOListElement>(".instructions-list"),
-    ".instructions-list"
+    ".instructions-list",
   );
 
   title.textContent = recipe.name;
