@@ -1,9 +1,16 @@
 import { getRecipeById } from "./api";
 import "./icons";
 import type { RecipeType } from "./types/recipe.types";
+import { checkElement } from "./utils";
 
-const recipeBody = document.querySelector<HTMLDivElement>(".recipe__body")!;
-const empty = document.querySelector<HTMLDivElement>(".empty")!;
+const recipeBody = checkElement(
+  document.querySelector<HTMLDivElement>(".recipe__body"),
+  ".recipe__body",
+);
+const empty = checkElement(
+  document.querySelector<HTMLDivElement>(".empty"),
+  ".empty",
+);
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -24,21 +31,50 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 const renderRecipe = (recipe: RecipeType) => {
-  const title = document.querySelector<HTMLHeadingElement>(".recipe__title")!;
-  const image = document.querySelector<HTMLImageElement>(".recipe__photo")!;
+  const title = checkElement(
+    document.querySelector<HTMLHeadingElement>(".recipe__title"),
+    ".recipe__title",
+  );
 
-  const cuisine = document.querySelector<HTMLTableCellElement>("#cuisine")!;
-  const prepTimeMinutes =
-    document.querySelector<HTMLTableCellElement>("#prepTimeMinutes")!;
-  const cookTimeMinutes =
-    document.querySelector<HTMLTableCellElement>("#cookTimeMinutes")!;
-  const totalTime = document.querySelector<HTMLTableCellElement>("#totalTime")!;
-  const servings = document.querySelector<HTMLTableCellElement>("#servings")!;
+  const image = checkElement(
+    document.querySelector<HTMLImageElement>(".recipe__photo"),
+    ".recipe__photo",
+  );
 
-  const ingredientsList =
-    document.querySelector<HTMLUListElement>(".ingredients-list")!;
-  const instructionsList =
-    document.querySelector<HTMLOListElement>(".instructions-list")!;
+  const cuisine = checkElement(
+    document.querySelector<HTMLTableCellElement>("#cuisine"),
+    "#cuisine",
+  );
+
+  const prepTimeMinutes = checkElement(
+    document.querySelector<HTMLTableCellElement>("#prepTimeMinutes"),
+    "#prepTimeMinutes",
+  );
+
+  const cookTimeMinutes = checkElement(
+    document.querySelector<HTMLTableCellElement>("#cookTimeMinutes"),
+    "#cookTimeMinutes",
+  );
+
+  const totalTime = checkElement(
+    document.querySelector<HTMLTableCellElement>("#totalTime"),
+    "#totalTime",
+  );
+
+  const servings = checkElement(
+    document.querySelector<HTMLTableCellElement>("#servings"),
+    "#servings",
+  );
+
+  const ingredientsList = checkElement(
+    document.querySelector<HTMLUListElement>(".ingredients-list"),
+    ".ingredients-list",
+  );
+
+  const instructionsList = checkElement(
+    document.querySelector<HTMLOListElement>(".instructions-list"),
+    ".instructions-list"
+  );
 
   title.textContent = recipe.name;
   image.src = recipe.image;
@@ -57,13 +93,13 @@ const renderRecipe = (recipe: RecipeType) => {
     const li = document.createElement("li");
     li.classList.add("ingredients-list__item");
     li.textContent = ingredient;
-    ingredientsList?.append(li);
+    ingredientsList.append(li);
   }
 
   for (const instruction of recipe.instructions) {
     const li = document.createElement("li");
     li.classList.add("instructions-list__item");
     li.textContent = instruction;
-    instructionsList?.append(li);
+    instructionsList.append(li);
   }
 };

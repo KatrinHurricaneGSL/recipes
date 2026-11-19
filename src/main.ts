@@ -4,13 +4,32 @@ import type { LoadProps, RecipeType } from "./types/recipe.types";
 import { Clock3, createIcons } from "lucide";
 import debounce from "lodash.debounce";
 import { renderPagination } from "./pagination";
+import { checkElement } from "./utils";
 
-const template = document.querySelector<HTMLTemplateElement>("#recipeCard")!;
-const countRecipes = document.querySelector(".results-count__value")!;
-const empty = document.querySelector(".empty") as HTMLDivElement;
-const resetButton =
-  document.querySelector<HTMLButtonElement>(".search__reset")!;
-const searchInput = document.querySelector<HTMLInputElement>(".search__input")!;
+const template = checkElement(
+  document.querySelector<HTMLTemplateElement>("#recipeCard"),
+  "#recipeCard",
+);
+
+const countRecipes = checkElement(
+  document.querySelector(".results-count__value"),
+  ".results-count__value",
+);
+
+const empty = checkElement(
+  document.querySelector<HTMLDivElement>(".empty"),
+  ".empty",
+);
+
+const resetButton = checkElement(
+  document.querySelector<HTMLButtonElement>(".search__reset"),
+  ".search__reset",
+);
+
+const searchInput = checkElement(
+  document.querySelector<HTMLInputElement>(".search__input"),
+  ".search__input",
+);
 
 const pagination = document.querySelector(".pagination");
 let currentPage = 1;
@@ -32,15 +51,40 @@ const renderCards = (recipes: RecipeType[]) => {
   recipeGrid.innerHTML = "";
 
   for (const recipe of recipes) {
-    const card = template.content.firstElementChild!.cloneNode(
-      true,
-    ) as HTMLElement;
+    const temp = template.content.firstElementChild;
+    if (!temp) {
+      throw new Error("Шаблон карточки не найден на странице");
+    }
 
-    const image = card.querySelector<HTMLImageElement>(".recipe-card__image")!;
-    const badge = card.querySelector<HTMLSpanElement>(".badge")!;
-    const title = card.querySelector<HTMLHeadingElement>(".recipe-card__name")!;
-    const timeValue = card.querySelector<HTMLSpanElement>(".time-meta__value")!;
-    const link = card.querySelector<HTMLAnchorElement>(".button")!;
+    const card = temp.cloneNode(true);
+    if (!(card instanceof HTMLElement)) {
+      throw new Error("Карточка должна быть HTML-элементом");
+    }
+
+    const image = checkElement(
+      card.querySelector<HTMLImageElement>(".recipe-card__image"),
+      ".recipe-card__image",
+    );
+
+    const badge = checkElement(
+      card.querySelector<HTMLSpanElement>(".badge"),
+      ".badge",
+    );
+
+    const title = checkElement(
+      card.querySelector<HTMLHeadingElement>(".recipe-card__name"),
+      ".recipe-card__name",
+    );
+
+    const timeValue = checkElement(
+      card.querySelector<HTMLSpanElement>(".time-meta__value"),
+      ".time-meta__value",
+    );
+
+    const link = checkElement(
+      card.querySelector<HTMLAnchorElement>(".button"),
+      ".button",
+    );
 
     image.src = recipe.image;
     image.alt = `Фото ${recipe.name}`;
@@ -101,9 +145,17 @@ const setLoading = (isLoading: boolean) => {
     countRecipes.textContent = "Загрузка...";
 
     for (let i = 0; i < skeletonCount; i++) {
-      const card = template.content.firstElementChild!.cloneNode(
-        true,
-      ) as HTMLElement;
+      const temp = template.content.firstElementChild;
+      if (!temp) {
+        throw new Error("Шаблон карточки не найден на странице");
+      }
+
+      const card = temp.cloneNode(true);
+
+      if (!(card instanceof HTMLElement)) {
+        throw new Error("Карточка должна быть HTML-элементом");
+      }
+
       card.classList.add("recipe-card--loading");
       recipeGrid.append(card);
     }
