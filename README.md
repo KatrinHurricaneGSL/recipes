@@ -66,4 +66,4 @@ npm run preview
 - `GET /recipes/search?q=Chicken&limit=6&skip=0` — поиск.
 - `GET /recipes/1` — отдельный рецепт.
 
-Размер страницы задаётся константой `PAGE_SIZE` в `src/pagination.ts`.
+Количество рецептов на странице задаётся константой `PAGE_SIZE` в `src/pagination.ts`.

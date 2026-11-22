@@ -194,6 +194,7 @@ input {
   position: relative;
   overflow: hidden;
   background-color: var(--color-loading);
+  pointer-events: none;
 }
 
 .recipe-card--loading::after {

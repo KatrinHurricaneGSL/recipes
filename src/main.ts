@@ -224,6 +224,7 @@ searchInput.addEventListener("input", () => {
 
 resetButton.addEventListener("click", () => {
   searchInput.value = "";
+  setPage(1);
   updateSearchButton();
   fetchCards();
   setSearchUrl();
